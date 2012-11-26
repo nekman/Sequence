@@ -1,11 +1,14 @@
 Sequence
 ===============
 
-Util class for collections Inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
+Util class for collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 
 #####NOTE
 I am know there are a bunch of frameworks out there (e.g LabmdaJ - http://code.google.com/p/lambdaj/)
-But I did this as a lab project, beacuse I wanted to learn how to implement some simple "good to have methods" when working with collections.
+But I did this as a lab project, beacuse I wanted to learn how to implement some simple "good to have methods"
+when working with collections.
+
+Doesn't usesany reflection, just simple Java.
 
 ###Usages and examples
 
@@ -74,3 +77,6 @@ But I did this as a lab project, beacuse I wanted to learn how to implement some
   String last = seq.lastOrDefault();
   
 ```
+###TODO
+forEach()
+sort()
