@@ -9,10 +9,12 @@ import java.util.Iterator;
 import java.util.List;
 
 import se.nekman.sequence.exceptions.EmptySequenceException;
+import se.nekman.sequence.selectors.Predicate;
+import se.nekman.sequence.selectors.Condition;
+import se.nekman.sequence.validators.Assert;
 
 /**
  * Util class for collections Inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
- *
  * NOTE: This is just a test/lab version and it may contain bugs.
  * 
  * @author nekman
@@ -96,12 +98,43 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
+	 * Determines whether a sequence contains any elements
+	 * 
+	 * @return
+	 */
+	public boolean any() {
+		return iterator().hasNext();
+	}
+	
+	/**
+	 * Determines whether any element of a sequence satisfies a condition.
+	 * 
+	 * @param predicate
+	 * @return
+	 */
+	public boolean any(final Predicate<T> predicate) {
+		Assert.notNull(predicate, "predicate");
+		
+		final Iterator<T> it = iterator();		
+		while (it.hasNext()) {
+			final T item = it.next();
+			if (predicate.match(item)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
+	/**
 	 * 
 	 * 
 	 * @param predicate the predicate to match.
 	 * @return
 	 */
 	public Sequence<T> filter(final Predicate<T> predicate) {
+		Assert.notNull(predicate, "predicate");
+		
 		final Collection<T> items = new ArrayList<T>();
 		for (final T item : source) {
 			if (predicate.match(item)) {
@@ -113,13 +146,15 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * 
+	 * Projects each element of a sequence into a new form.
 	 * 
 	 * @param condition the condition
 	 * @return
 	 */
-	public <V> Sequence<V> map(final Condition<T, V> condition) {
-		final Collection<V> items = new ArrayList<V>();
+	public <TResult> Sequence<TResult> map(final Condition<T, TResult> condition) {
+		Assert.notNull(condition, "condition");
+		
+		final Collection<TResult> items = new ArrayList<TResult>();
 		for (final T item : source) {
 			items.add(condition.map(item));		
 		}
@@ -134,7 +169,7 @@ public class Sequence<T> implements Iterable<T> {
 	 * @return
 	 */
 	public Sequence<T> skip(int count) {
-		final Iterator<T> it = source.iterator();
+		final Iterator<T> it = iterator();
 		
 		if (!it.hasNext()) {
 			return empty();
@@ -161,12 +196,12 @@ public class Sequence<T> implements Iterable<T> {
 	 * @param start where in the sequence to start
 	 * @return elements from the start of a sequence
 	 */
-	public Sequence<T> take(final int start) {		
-		final Iterator<T> it = source.iterator();
+	public Sequence<T> take(final int start) {				
 		if (start <= 0) {
 			return empty();
 		}
 		
+		final Iterator<T> it = iterator();
 		final Collection<T> items = new ArrayList<T>();		
 		int itemsAdded = 0;
 		while (it.hasNext()) {
@@ -205,36 +240,26 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * The last element of a sequence.
+	 * The last element of a sequence, or default if the sequence is empty.
 	 * 
 	 * @return the last element of a sequence. 
-	 * @throws EmptySequenceException if the sequence is empty.
 	 */
 	public T lastOrDefault() {
 		final List<T> items = toList();
 		final int size = items.size();
-		if (size < 1) {
-			//TODO: return null?
-			return null;
-		}
 		
-		return items.get(size - 1);
+		return size < 1 ? null : items.get(size -1);
 	}
 
 	/**
-	 * The first element of a sequence.
+	 * The first element of a sequence, or default if the sequence is empty.
 	 * 
 	 * @return the first element of a sequence. 	 
 	 */
 	public T firstOrDefault() {
 		final List<T> items = toList();
 		
-		if (items.size() < 1) {
-			//TODO: return null?
-			return (T)null;
-		}
-		
-		return items.get(0);
+		return items.size() < 1 ? null : items.get(0);
 	}
 	
 	/**
@@ -275,10 +300,11 @@ public class Sequence<T> implements Iterable<T> {
 	 * Returns the sequence as an array.
 	 * 
 	 * @return
-	 */
+	 */	
 	@SuppressWarnings("unchecked")
 	public T[] toArray() {
 		final T one = firstOrDefault();
+		
 		return (T[]) source.toArray((T[])Array.newInstance(one.getClass(), count()));
 	}
 	

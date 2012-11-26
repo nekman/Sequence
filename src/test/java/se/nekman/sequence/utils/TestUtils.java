@@ -1,6 +1,9 @@
-package se.nekman.sequence;
+package se.nekman.sequence.utils;
 
-public class TestHelper {
+import se.nekman.sequence.selectors.Predicate;
+import se.nekman.sequence.selectors.Condition;
+
+public class TestUtils {
 
 	public static final Predicate<Integer> biggerThanFive = new Predicate<Integer>() {					
 		@Override

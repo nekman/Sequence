@@ -1,4 +1,4 @@
-package se.nekman.sequence;
+package se.nekman.sequence.selectors;
 
 /**
  * 
@@ -10,7 +10,7 @@ public interface Predicate<T> {
 	/**
 	 * 
 	 * @param item
-	 * @return true if matches.
+	 * @return true if match.
 	 */
 	boolean match(final T item);
 }

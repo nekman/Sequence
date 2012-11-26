@@ -2,7 +2,7 @@ package se.nekman.sequence;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static se.nekman.sequence.TestHelper.*;
+import static se.nekman.sequence.utils.TestUtils.*;
 import static se.nekman.sequence.Sequence.from;
 
 import java.util.List;
@@ -148,6 +148,12 @@ public class SequenceTest {
 		assertThat(numbers.length, is(expected));
 		assertThat(1, is(numbers[0]));
 		assertThat(10, is(numbers[9]));
+	}
+	
+	@Test
+	public void itShouldHaveAnyElements() {
+		assertTrue(sequence.any());
+		assertTrue(sequence.any(biggerThanFive));
 	}
 	
 	@Test(expected=EmptySequenceException.class)
