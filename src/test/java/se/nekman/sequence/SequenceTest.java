@@ -1,16 +1,21 @@
 package se.nekman.sequence;
 
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.*;
-import static se.nekman.sequence.utils.TestUtils.*;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 import static se.nekman.sequence.Sequence.from;
+import static se.nekman.sequence.utils.TestUtils.biggerThanFive;
+import static se.nekman.sequence.utils.TestUtils.intToString;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 
-import se.nekman.sequence.Sequence;
 import se.nekman.sequence.exceptions.EmptySequenceException;
+import se.nekman.sequence.selectors.Action;
 
 public class SequenceTest {
 
@@ -57,6 +62,22 @@ public class SequenceTest {
 		assertThat(items.count(), is(10));
 		assertThat(items.first(), is("1"));
 		assertThat(items.last(), is("10"));
+	}
+	
+	@Test
+	public void itShouldMuliplyNumbersWithForeach() throws EmptySequenceException {		
+		Sequence<AtomicInteger> all = from(new AtomicInteger(10), new AtomicInteger(20))
+				.forEach(new Action<AtomicInteger>() {					
+					@Override
+					public void execute(AtomicInteger item) {
+						item.set(item.get()*2);
+					}
+				});
+				
+		
+		assertThat(all.count(), is(2));
+		assertThat(all.first().intValue(), is(20));
+		assertThat(all.last().intValue(), is(40));
 	}
 	
 	@Test

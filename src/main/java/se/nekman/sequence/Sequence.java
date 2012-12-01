@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import se.nekman.sequence.exceptions.EmptySequenceException;
+import se.nekman.sequence.selectors.Action;
 import se.nekman.sequence.selectors.Predicate;
 import se.nekman.sequence.selectors.Condition;
 import se.nekman.sequence.validators.Assert;
@@ -136,7 +137,7 @@ public class Sequence<T> implements Iterable<T> {
 		Assert.notNull(predicate, "predicate");
 		
 		final Collection<T> items = new ArrayList<T>();
-		for (final T item : source) {
+		for (final T item : this) {
 			if (predicate.match(item)) {
 				items.add(item);
 			}
@@ -155,7 +156,7 @@ public class Sequence<T> implements Iterable<T> {
 		Assert.notNull(condition, "condition");
 		
 		final Collection<TResult> items = new ArrayList<TResult>();
-		for (final T item : source) {
+		for (final T item : this) {
 			items.add(condition.map(item));		
 		}
 		
@@ -310,9 +311,26 @@ public class Sequence<T> implements Iterable<T> {
 	
 	/**
 	 * 
+	 * @param predicate
+	 * @return
+	 */
+	public Sequence<T> forEach(final Action<T> action) {
+		Assert.notNull(action, "action");
+		
+		final List<T> items = new ArrayList<T>();
+		for (final T item : this) {
+			action.execute(item);
+			items.add(item);
+		}
+		
+		return from(items);
+	}
+	
+	/**
+	 * 
 	 * @return
 	 */
 	private static <T> Sequence<T> empty() {
 		return new Sequence<T>(null);
-	}	
+	}		
 }

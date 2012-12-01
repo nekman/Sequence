@@ -16,6 +16,6 @@ public class TestUtils {
 		@Override
 		public String map(Integer item) {
 			return String.valueOf(item);
-		}							
+		}						
 	};
 }
