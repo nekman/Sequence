@@ -77,6 +77,16 @@ Doesn't uses any reflection, just simple Java.
   String last = seq.lastOrDefault();
   
 ```
+#####forEach
+```java
+  //Create a action
+  Action<Person> updatePersonAge = new Action<Person>() {    
+    public void execute(Person p) {
+      p.age += 10;
+    }           
+  };
+
+  from(getPersons()).forEach(updatePersonAge);
+```
 ###TODO
-forEach()
 sort()
