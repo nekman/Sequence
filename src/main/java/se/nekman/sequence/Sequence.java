@@ -99,12 +99,30 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * Determines whether a sequence contains any elements
+	 * Determines whether a sequence contains any elements.
 	 * 
 	 * @return
 	 */
 	public boolean any() {
 		return iterator().hasNext();
+	}
+	
+	/**
+	 * Determines whether all elements of a sequence satisfy a condition.
+	 * 
+	 * @param predicate - the action
+	 * @return
+	 */
+	public boolean all(final Predicate<T> predicate) {
+		Assert.notNull(predicate, "predicate");
+		
+		for (final T item : this) {
+			if (predicate.match(item)) {
+				return false;
+			}
+		}
+		
+		return true;
 	}
 	
 	/**
@@ -280,6 +298,22 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
+	 * Generates a sequence of integral numbers within a specified range.
+	 * 
+	 * @param start
+	 * @param count
+	 * @return
+	 */
+	public Sequence<Integer> range(final int start, final int count) {		
+		final List<Integer> items = new ArrayList<Integer>();
+		for (int index = start; index <= count; index++)
+			items.add(index);
+		
+		
+		return new Sequence<Integer>(items);
+	}
+	
+	/**
 	 * Returns the sequence as an List<T>.
 	 * 
 	 * @return
@@ -310,8 +344,9 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
+	 * Performs the specified action on each element in the sequence.
 	 * 
-	 * @param predicate
+	 * @param action - the action
 	 * @return
 	 */
 	public Sequence<T> forEach(final Action<T> action) {

@@ -81,6 +81,25 @@ public class SequenceTest {
 	}
 	
 	@Test
+	public void itShouldGenerateRange() throws EmptySequenceException {
+		Sequence<Integer> range = from()
+				.range(1, 1000);
+		
+		assertThat(range.count(), is(1000));
+		assertThat(range.first(), is(1));
+		assertThat(range.last(), is(1000));
+	}
+	
+	@Test
+	public void itShouldHandleEmpty() throws EmptySequenceException {
+		Sequence<String> seq = from()
+				.range(1, 10)
+				.map(intToString);
+	
+		assertThat(seq.firstOrDefault(), is("1"));
+	}
+	
+	@Test
 	public void itShouldTakeAll() {
 		List<Integer> all = sequence
 				.take(1000)
@@ -88,7 +107,7 @@ public class SequenceTest {
 		
 		assertThat(all.size(), is(10));
 	}
-	
+
 	@Test
 	public void itShouldSkipTheFirstTwoItems() {
 		List<Integer> allButThefirstTwo = sequence
