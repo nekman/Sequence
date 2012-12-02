@@ -1,19 +1,49 @@
 Sequence
 ===============
 
-Util class for collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
+Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 
 #####NOTE
 I know that there are a bunch of frameworks out there (e.g LabmdaJ - http://code.google.com/p/lambdaj/)
-But I did this as a lab project, beacuse I wanted to learn how to implement some simple "good to have methods"
-when working with collections.
+But I did this as a lab project, beacuse I wanted to learn how to implement some simple "good to have methods" when working with collections. 
 
-Doesn't uses any reflection, just simple Java.
+Doesn't uses any reflection.
 
+###Supported methods
+```java
+from(Collection<T>)
+from(T...)
+concat(Collection<T>)
+concat(T...)
+any()
+all(Predicate<T>)
+any(Predicate<T>)
+filter(Predicate<T>)
+map(Condition<T, TResult>)
+skip(int)
+take(int)
+count()
+last()
+lastOrDefault()
+firstOrDefault()
+first()
+range(int, int)
+toList()
+toCollection()
+toArray()
+forEach(Action<T>)
+```
+###Methods that should be implemented
+```java
+sort() / orderBy()
+thenBy()
+toSet()
+toMap()
+```
 ###Usages and examples
 
 
-#####Grab items from a collection
+#####Generate and getting items from a collection
 ```java
   from(1,2,3,4,5)
     .take(2)
@@ -22,8 +52,10 @@ Doesn't uses any reflection, just simple Java.
   from(1,2,3,4,5)
     .skip(2)
     .first(); //3
+
+  from().range(1, 5).toList(); // [1, 2, 3, 4, 5]
 ```
-#####Filter persons by age
+#####Filter "persons" by age
 ```java
   
   Predicate<Person> oldPersons = new Predicate<Person>() {
@@ -88,5 +120,3 @@ Doesn't uses any reflection, just simple Java.
 
   from(getPersons()).forEach(updatePersonAge);
 ```
-###TODO
-sort()
