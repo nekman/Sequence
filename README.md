@@ -4,10 +4,8 @@ Sequence
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 
 #####NOTE
-I know that there are a bunch of frameworks out there (e.g LabmdaJ - http://code.google.com/p/lambdaj/)
-But I did this as a lab project, beacuse I wanted to learn how to implement some simple "good to have methods" when working with collections. 
-
-Doesn't uses any reflection.
+Did this as a lab project. 
+I know that there are other frameworks out there (e.g LabmdaJ - http://code.google.com/p/lambdaj/).
 
 ###Supported methods
 ```java
