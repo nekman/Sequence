@@ -1,20 +1,22 @@
 package se.nekman.sequence.validators;
 
 /**
+ * Assertion utility class that assists in validating arguments. 
+ * Useful for identifying programmer errors early and clearly at runtime.
  * 
  * @author nekman
  *
  */
 public class Assert {
 	/**
-	 * Throws IllegalArgumentException if the submited object is null.
+	 * Throws IllegalArgumentException if the submitted object is null.
 	 * 
-	 * @param o
-	 * @param name
+	 * @param objectToCheck
+	 * @param parameterName
 	 */
-	public static void notNull(final Object o, final String name) {
-		if (o == null) {
-			throw new IllegalArgumentException(name + " cannot be null");
+	public static void notNull(final Object objectToCheck, final String parameterName) {
+		if (objectToCheck == null) {
+			throw new IllegalArgumentException(parameterName + " cannot be null");
 		}
 	}
 }
