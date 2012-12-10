@@ -30,6 +30,7 @@ toList()
 toCollection()
 toArray()
 forEach(Action<T>)
+ofType(Class<V>)
 ```
 ###Methods that should be implemented
 ```java
@@ -71,7 +72,7 @@ toMap()
     .any();
 ```
 
-#####Work with a collection
+#####Filter and map
 ```java
   //Map condition
   Condition<Person, String> personName = new Condition<Person, String>() {  	
@@ -117,4 +118,14 @@ toMap()
   };
 
   from(getPersons()).forEach(updatePersonAge);
+```
+#####ofType
+```java
+
+// Get all properties (Hashtable<Object,Object>)
+Properties props = getProperties();
+
+for (String s : from(props.keySet()).ofType(String.class)) {
+    // Do something with the string
+}
 ```
