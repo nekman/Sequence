@@ -63,7 +63,7 @@ public class Sequence<T> implements Iterable<T> {
 	 * @param source
 	 * @return
 	 */
-	public static <T> Sequence<T> from(final T... source) {
+	public static <T extends Object> Sequence<T> from(final T... source) {
 		return from(Arrays.asList(source));
 	}
 	
@@ -356,6 +356,26 @@ public class Sequence<T> implements Iterable<T> {
 		for (final T item : this) {
 			action.execute(item);
 			items.add(item);
+		}
+		
+		return from(items);
+	}
+	
+	/**
+	 * Filters the elements of an sequence based on a specified type.
+	 * 
+	 * @param action - the action
+	 * @return
+	 */	
+	@SuppressWarnings("unchecked")
+	public <V> Sequence<V> ofType(final Class<V> clazz) {	
+		Assert.notNull(clazz, "class");
+		
+		final List<V> items = new ArrayList<V>();
+		for (final T item : this) {
+			if (clazz.isInstance(item)) {
+				items.add((V) item);
+			}
 		}
 		
 		return from(items);

@@ -1,14 +1,17 @@
 package se.nekman.sequence;
 
-import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static se.nekman.sequence.Sequence.from;
 import static se.nekman.sequence.utils.TestUtils.biggerThanFive;
 import static se.nekman.sequence.utils.TestUtils.intToString;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Before;
@@ -194,6 +197,32 @@ public class SequenceTest {
 	public void itShouldHaveAnyElements() {
 		assertTrue(sequence.any());
 		assertTrue(sequence.any(biggerThanFive));
+	}
+	
+	@Test
+	public void itShouldTakeElementsOfType() {
+		Sequence<Object> seq = from(1, "string", 1.0f, new Object());
+		
+		assertThat(seq.ofType(Integer.class).count(), is(1));
+		assertThat(seq.ofType(String.class).count(), is(1));
+		assertThat(seq.ofType(Float.class).count(), is(1));
+		assertThat(seq.ofType(byte.class).count(), is(0));
+	}
+	
+	@Test
+	public void itShouldIterateOverElementsOfTypeString() {
+		@SuppressWarnings("serial")
+		Map<Object, String> map = new HashMap<Object, String>() {{
+			put("s1", "");
+			put(1111, "");
+			put("s2", "");
+			put("s3", "");
+			put(2222, "");
+		}};
+		
+		for (String s : from(map.keySet()).ofType(String.class)) {
+			assertThat(s, isA(String.class));
+		}
 	}
 	
 	@Test(expected=EmptySequenceException.class)
