@@ -3,6 +3,16 @@
   <groupId>se.nekman.sequence</groupId>
   <artifactId>sequence</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  
+  <repositories>
+    <repository>
+        <id>central</id>
+        <name>Central Maven Repository</name>
+        <url>http://search.maven.org/</url>
+        <layout>default</layout>
+    </repository>
+  </repositories>
+  
   <dependencies>
   	<dependency>
   		<groupId>junit</groupId>
