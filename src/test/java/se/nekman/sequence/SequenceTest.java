@@ -12,6 +12,7 @@ import static se.nekman.sequence.utils.TestUtils.intToString;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Before;
@@ -212,7 +213,7 @@ public class SequenceTest {
 	@Test
 	public void itShouldIterateOverElementsOfTypeString() {
 		@SuppressWarnings("serial")
-		Map<Object, String> map = new HashMap<Object, String>() {{
+		Properties p = new Properties() {{
 			put("s1", "");
 			put(1111, "");
 			put("s2", "");
@@ -220,7 +221,7 @@ public class SequenceTest {
 			put(2222, "");
 		}};
 		
-		for (String s : from(map.keySet()).ofType(String.class)) {
+		for (String s : from(p.keySet()).ofType(String.class)) {
 			assertThat(s, isA(String.class));
 		}
 	}
