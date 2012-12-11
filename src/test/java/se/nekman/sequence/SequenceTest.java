@@ -1,7 +1,7 @@
 package se.nekman.sequence;
 
-import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
@@ -9,9 +9,7 @@ import static se.nekman.sequence.Sequence.from;
 import static se.nekman.sequence.utils.TestUtils.biggerThanFive;
 import static se.nekman.sequence.utils.TestUtils.intToString;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 

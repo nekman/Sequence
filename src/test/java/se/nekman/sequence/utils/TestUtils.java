@@ -1,7 +1,7 @@
 package se.nekman.sequence.utils;
 
 import se.nekman.sequence.selectors.Predicate;
-import se.nekman.sequence.selectors.Condition;
+import se.nekman.sequence.selectors.Func;
 
 public class TestUtils {
 
@@ -12,7 +12,7 @@ public class TestUtils {
 		}
 	};
 	
-	public static final Condition<Integer, String> intToString = new Condition<Integer, String>() {
+	public static final Func<Integer, String> intToString = new Func<Integer, String>() {
 		@Override
 		public String map(Integer item) {
 			return String.valueOf(item);

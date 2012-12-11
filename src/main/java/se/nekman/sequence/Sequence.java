@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import se.nekman.sequence.exceptions.EmptySequenceException;
 import se.nekman.sequence.selectors.Action;
 import se.nekman.sequence.selectors.Predicate;
-import se.nekman.sequence.selectors.Condition;
+import se.nekman.sequence.selectors.Func;
 import se.nekman.sequence.validators.Assert;
 
 /**
@@ -29,7 +31,12 @@ public class Sequence<T> implements Iterable<T> {
 	 */
 	private final Collection<T> source;
 	
-	private Sequence(final Collection<T> source) {
+	/**
+	 * Initialize a new sequence.
+	 * 
+	 * @param source
+	 */
+	public Sequence(final Collection<T> source) {
 		if (source == null) {
 			this.source = Collections.emptyList();
 			return;
@@ -48,7 +55,7 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * The from method, initialize a new sequence.
+	 * Initialize a new sequence.
 	 * 
 	 * @param source
 	 * @return
@@ -58,12 +65,12 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * The from method, initialize a new sequence. 
+	 * Initialize a new sequence. 
 	 * 
 	 * @param source
 	 * @return
 	 */
-	public static <T extends Object> Sequence<T> from(final T... source) {
+	public static <T> Sequence<T> from(final T... source) {
 		return from(Arrays.asList(source));
 	}
 	
@@ -108,7 +115,7 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * Determines whether all elements of a sequence satisfy a condition.
+	 * Determines whether all elements of a sequence satisfy a predicate.
 	 * 
 	 * @param predicate - the action
 	 * @return
@@ -126,7 +133,7 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * Determines whether any element of a sequence satisfies a condition.
+	 * Determines whether any element of a sequence satisfies a predicate.
 	 * 
 	 * @param predicate
 	 * @return
@@ -146,7 +153,7 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
-	 * 
+	 * Filters a sequence of values based on a predicate.
 	 * 
 	 * @param predicate the predicate to match.
 	 * @return
@@ -165,20 +172,39 @@ public class Sequence<T> implements Iterable<T> {
 	}
 	
 	/**
+	 * Same as {@link #filter(Predicate)}
+	 * @see {@link #map(Predicate)}
+	 */
+	public Sequence<T> where(final Predicate<T> predicate) {
+		return filter(predicate);
+	}
+		
+	/**
 	 * Projects each element of a sequence into a new form.
 	 * 
-	 * @param condition the condition
+	 * @param func the func
 	 * @return
 	 */
-	public <TResult> Sequence<TResult> map(final Condition<T, TResult> condition) {
-		Assert.notNull(condition, "condition");
+	public <TResult> Sequence<TResult> map(final Func<T, TResult> func) {
+		Assert.notNull(func, "func");
 		
 		final Collection<TResult> items = new ArrayList<TResult>();
 		for (final T item : this) {
-			items.add(condition.map(item));		
+			items.add(func.map(item));		
 		}
 		
 		return from(items);
+	}
+	
+	/**
+	 * Same as {@link #map(Func)}
+	 * @see {@link #map(Func)}
+	 * 
+	 * @param func the func
+	 * @return
+	 */
+	public <TResult> Sequence<TResult> select(final Func<T, TResult> func) {
+		return map(func);
 	}
 	
 	/**
@@ -306,9 +332,9 @@ public class Sequence<T> implements Iterable<T> {
 	 */
 	public Sequence<Integer> range(final int start, final int count) {		
 		final List<Integer> items = new ArrayList<Integer>();
-		for (int index = start; index <= count; index++)
+		for (int index = start; index <= count; index++) {
 			items.add(index);
-		
+		}
 		
 		return new Sequence<Integer>(items);
 	}
@@ -338,9 +364,19 @@ public class Sequence<T> implements Iterable<T> {
 	 */	
 	@SuppressWarnings("unchecked")
 	public T[] toArray() {
-		final T one = firstOrDefault();
+		final T first = firstOrDefault();
+		final Object item = first != null ? first : new Object();
 		
-		return (T[]) source.toArray((T[])Array.newInstance(one.getClass(), count()));
+		return (T[]) source.toArray((T[])Array.newInstance(item.getClass(), count()));
+	}
+	
+	/**
+	 * Returns the sequence as a Set.
+	 * 
+	 * @return
+	 */	
+	public Set<T> toSet() {
+		return new HashSet<T>(source);
 	}
 	
 	/**

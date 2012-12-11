@@ -7,7 +7,7 @@ package se.nekman.sequence.selectors;
  * @param <TSource>
  * @param <TResult>
  */
-public interface Condition<TSource, TResult> {
+public interface Func<TSource, TResult> {
 	/**
 	 * 
 	 * @param item
