@@ -4,8 +4,12 @@ Sequence
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 <br />
 #####NOTE
+I know that there are other frameworks out there e.g:<br/>
+LabmdaJ - http://code.google.com/p/lambdaj/<br/>
+Tiny-q - http://code.google.com/p/tiny-q/<br/>
+<br/>
 Did this as a lab project. 
-I know that there are other frameworks out there (e.g LabmdaJ - http://code.google.com/p/lambdaj/).
+
 
 ###Supported methods
 
@@ -38,7 +42,9 @@ I know that there are other frameworks out there (e.g LabmdaJ - http://code.goog
 ###More examples
 [Example of map and filter](#mapFilterExample)<br />
 
-###Methods that should be implemented
+##TODO
+###Refactor
+###Implement
 ```java
 sort() / orderBy()
 thenBy()
@@ -168,7 +174,7 @@ Note: map is same as select.
   };
 
   Integer[] shoeSizes = from(persons)
-     .map(getShoeSize)
+     .map(getShoeSizes)
      .toArray();
 
 ```
