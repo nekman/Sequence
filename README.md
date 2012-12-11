@@ -124,6 +124,15 @@ Determines whether a sequence contains any elements.
 Determines whether all elements of a sequence satisfy a predicate.
 
 ```java
+ 
+  Predicate<Person> isOlderThan30 = new Predicate<Person>() {
+     public boolean match(Person p) {
+        return p.getAge() > 30;
+     }
+  };
+
+ boolean allPersonsIsOlderThan30 = from(getPersons()).all(isOlderThan30);
+
 ```
 
 #####<a name="filter"></a>filter() / where()
