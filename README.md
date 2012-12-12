@@ -117,7 +117,7 @@ Determines whether a sequence contains any elements.
    
    Predicate<Person> namesStartsWithA = new Predicate<Person>() {
       public boolean match(Person p) {
-         return p.getName().startWith("a");
+         return p.getName().startsWith("a");
       }
    };
    
@@ -157,7 +157,7 @@ Note: filter is same as where.
   
   // has old persons?  
   boolean hasOldPersons = from(persons)    
-    .select(oldPersons)
+    .filter(oldPersons)
     .any();
 
 ```
