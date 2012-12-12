@@ -1,15 +1,30 @@
-Sequence
-===============
+###Sequence
 
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 <br />
-#####NOTE
-I know that there are other frameworks out there e.g:<br/>
-LabmdaJ - http://code.google.com/p/lambdaj/<br/>
-Tiny-q - http://code.google.com/p/tiny-q/<br/>
+There are other libraries out there that can be used to querying collections e.g:<br/>
+<a href="http://code.google.com/p/lambdaj/">LabmdaJ</a><br />
+<a href="http://code.google.com/p/tiny-q/">Tiny-q</a><br />
 <br/>
-Did this as a lab project. 
+This project aims to match the <a href="http://msdn.microsoft.com/en-us/library/bb341635.aspx">LINQ
+</a>-syntax.<br/>
 
+###Quick example
+Generate a sequence of numbers
+```java
+Integer[] numbers = from().range(1, 5).take(4).toArray(); //[1, 2, 3, 4]
+```
+Select all names from a Person collection.
+```java
+from(persons).select(new Func<Person, String>() {
+  public String map(Person p) {
+    return p.getName();
+  }
+})
+.take(10)
+```
+
+See more examples bellow.
 
 ###Supported methods
 
@@ -23,7 +38,7 @@ Did this as a lab project.
 [filter(Predicate<T>)](#filter)<br />
 [where(Predicate<T>)](#filter)<br />
 [map(Func<T, TResult>)](#map)<br />
-[select(Func<T, TResult>)](#select)<br />
+[select(Func<T, TResult>)](#map)<br />
 [skip(int)](#skip)<br />
 [take(int)](#take)<br />
 [count()](#count)<br />
@@ -39,18 +54,8 @@ Did this as a lab project.
 [forEach(Action<T>)](#forEach)<br />
 [ofType(Class<V>)](#ofType)<br />
 
-###More examples
 [Example of map and filter](#mapFilterExample)<br />
 
-##TODO
-###Refactor
-###Implement
-```java
-sort() / orderBy()
-thenBy()
-toMap()
-```
-##Usages and examples
 
 ###Initialization
 
