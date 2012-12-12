@@ -21,7 +21,7 @@ from(persons).select(new Func<Person, String>() {
     return p.getName();
   }
 })
-.take(10)
+.take(10); //First 10 person names in the collection.
 ```
 
 See more examples bellow.
