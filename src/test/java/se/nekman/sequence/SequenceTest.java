@@ -11,6 +11,7 @@ import static se.nekman.sequence.utils.TestUtils.intToString;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Before;
@@ -206,6 +207,13 @@ public class SequenceTest {
 		assertThat(seq.ofType(String.class).count(), is(1));
 		assertThat(seq.ofType(Float.class).count(), is(1));
 		assertThat(seq.ofType(byte.class).count(), is(0));
+	}
+	
+	@Test
+	public void itShouldNotContainDuplicates() {
+		Set<String> set = from("foo", "foo", "bar", "bar").toSet();
+		
+		assertThat(set.size(), is(2));
 	}
 	
 	@Test
