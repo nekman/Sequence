@@ -3,8 +3,8 @@
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 <br />
 There are other libraries out there that can be used to querying collections e.g:<br/>
-<a href="http://code.google.com/p/lambdaj/">LabmdaJ</a><br />
-<a href="http://code.google.com/p/tiny-q/">Tiny-q</a><br />
+<a href="http://code.google.com/p/lambdaj/">LambdaJ</a><br />
+<a href="http://code.google.com/p/tiny-q/">TinyQ</a><br />
 <br/>
 This project aims to match the <a href="http://msdn.microsoft.com/en-us/library/bb341635.aspx">LINQ
 </a>-syntax.<br/>
@@ -64,7 +64,7 @@ For easiest access, import the 'from' method static:
 import static se.nekman.sequence.Sequence.from;
 ```
 
-The Sequence can also be initialized by using the constructor:
+Can also be created using the constructor:
 ```java
 Sequence<String> sequence = new Sequence<String>(Arrays.asList("foo", "bar"));
 ```
