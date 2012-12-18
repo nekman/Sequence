@@ -1,7 +1,5 @@
 ###Sequence
 
-[![Build Status](https://travis-ci.org/nekman/Sequence.png)](https://travis-ci.org/nekman/Sequence)
-
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 <br />
 There are other libraries out there that can be used to querying collections e.g:<br/>
@@ -10,6 +8,9 @@ There are other libraries out there that can be used to querying collections e.g
 <br/>
 This project aims to match the <a href="http://msdn.microsoft.com/en-us/library/bb341635.aspx">LINQ
 </a>-syntax.<br/>
+
+###Build status
+[![Build Status](https://api.travis-ci.org/nekman/Sequence.png?branch=master)](https://travis-ci.org/nekman/Sequence)
 
 ###Quick example
 Generate a sequence of numbers
