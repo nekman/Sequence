@@ -1,5 +1,7 @@
 ###Sequence
 
+[![Build Status](https://travis-ci.org/nekman/Sequence.png)](https://travis-ci.org/nekman/Sequence)
+
 Util class for Java collections inspired by LINQ in C# - http://msdn.microsoft.com/en-us/library/bb341635.aspx
 <br />
 There are other libraries out there that can be used to querying collections e.g:<br/>
