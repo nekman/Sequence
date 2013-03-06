@@ -388,13 +388,11 @@ public class Sequence<T> implements Iterable<T> {
 	public Sequence<T> forEach(final Action<T> action) {
 		Assert.notNull(action, "action");
 		
-		final List<T> items = new ArrayList<T>();
 		for (final T item : this) {
 			action.execute(item);
-			items.add(item);
 		}
 		
-		return from(items);
+		return this;
 	}
 	
 	/**
@@ -404,13 +402,13 @@ public class Sequence<T> implements Iterable<T> {
 	 * @return
 	 */	
 	@SuppressWarnings("unchecked")
-	public <V> Sequence<V> ofType(final Class<V> clazz) {	
+	public <TType> Sequence<TType> ofType(final Class<TType> clazz) {	
 		Assert.notNull(clazz, "class");
 		
-		final List<V> items = new ArrayList<V>();
+		final List<TType> items = new ArrayList<TType>();
 		for (final T item : this) {
 			if (clazz.isInstance(item)) {
-				items.add((V) item);
+				items.add((TType) item);
 			}
 		}
 		

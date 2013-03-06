@@ -26,7 +26,7 @@ public class SequenceTest {
 
 	@Before
 	public void setup() {		
-		sequence = from(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		sequence = from().range(1, 10);
 	}
 	
 	@Test
@@ -229,6 +229,10 @@ public class SequenceTest {
 		
 		for (String s : from(p.keySet()).ofType(String.class)) {
 			assertThat(s, isA(String.class));
+		}
+		
+		for (Integer i : from(p.keySet()).ofType(Integer.class)) {
+			assertThat(i, isA(Integer.class));
 		}
 	}
 	
